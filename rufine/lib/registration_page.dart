@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import 'auth_service.dart';
 import 'form_registration.dart';
 
 class Registration extends StatelessWidget {
@@ -8,6 +10,7 @@ class Registration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -50,7 +53,7 @@ class Registration extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                FormRegistration(context);
+                FormRegistration(context, authService);
               },
               child: const Text(
                 'Create Account',
@@ -73,7 +76,7 @@ class Registration extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                FormRegistration(context);
+                FormRegistration(context, authService);
               },
               child: const Text(
                 'Login',
