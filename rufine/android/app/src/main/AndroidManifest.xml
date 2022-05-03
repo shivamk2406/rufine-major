@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rufine">
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Permission: INTERNET -->
    <application
         android:label="rufine"
         android:name="${applicationName}"

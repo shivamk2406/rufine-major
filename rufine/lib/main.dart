@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rufine/auth_service.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthService>(
-          create: (_) => AuthService(),
+          create: (_) => AuthService(FirebaseAuth.instance),
         ),
       ],
       child: MaterialApp(

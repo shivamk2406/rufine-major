@@ -17,14 +17,14 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyAppDrawer(username: "Skyler"
-          //FirebaseAuth.instance.currentUser!.displayName.toString(),
-          ),
+      drawer: MyAppDrawer(
+        username: FirebaseAuth.instance.currentUser!.displayName.toString(),
+      ),
       body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Container(
-          child: Text("Hello User",
-              //FirebaseAuth.instance.currentUser!.displayName.toString(),
+          child: Text(
+              "Hello ${FirebaseAuth.instance.currentUser!.displayName.toString()}",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
         ElevatedButton(

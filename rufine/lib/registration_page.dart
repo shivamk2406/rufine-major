@@ -5,9 +5,14 @@ import 'package:provider/provider.dart';
 import 'auth_service.dart';
 import 'form_registration.dart';
 
-class Registration extends StatelessWidget {
+class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
 
+  @override
+  State<Registration> createState() => _RegistrationState();
+}
+
+class _RegistrationState extends State<Registration> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);

@@ -1,6 +1,8 @@
 class User {
-  final String? uid;
-  final String? email;
+  String? uid;
+  String? email;
+  String? Password;
+  String? displayName;
 
-  User({this.uid, this.email});
+  User({this.uid, this.email, this.Password, this.displayName});
 }

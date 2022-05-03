@@ -6,58 +6,87 @@ import 'package:rufine/models/user_model.dart';
 import 'dashboard.dart';
 
 class AuthService {
-  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+  final auth.FirebaseAuth _firebaseAuth;
+  AuthService(this._firebaseAuth);
 
   User? _userFromFirebase(auth.User? user) {
     if (user == null) {
       return null;
     }
-    return User(uid: user.uid, email: user.email);
+    return User(
+        uid: user.uid, email: user.email, displayName: user.displayName);
   }
 
   Stream<User?>? get user {
-    return _auth.authStateChanges().map(_userFromFirebase);
+    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
-  Future<User?> signInwithEmailAndPassword(
-      String email, String password, BuildContext context) async {
+  Future<User?> signIn(
+      {required String email,
+      required String password,
+      required String name,
+      required BuildContext context}) async {
     try {
-      final auth.UserCredential result = await _auth.signInWithEmailAndPassword(
+      final auth.UserCredential result =
+          await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
+      //get From Database
       var collection = await FirebaseFirestore.instance
           .collection('users')
           .doc(result.user!.uid)
           .get();
       print(collection.data());
+
+      auth.User? user = result.user;
+      String? name = user!.displayName;
+
+      print("user name: $name");
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => Dashboard(),
+        ),
+      );
       return _userFromFirebase(result.user);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-      ));
+    } on auth.FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message!)));
+      print(e.message);
       return null;
     }
   }
 
-  Future<User?> createUserWithEmailAndPassword(
-      String email, String password, String name, BuildContext context) async {
+  Future<User?> signUp(
+      {required String email,
+      required String password,
+      required String name,
+      required BuildContext context}) async {
     try {
       final auth.UserCredential result =
-          await _auth.createUserWithEmailAndPassword(
+          await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      print("inside createUserWithEmailAndPassword");
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(result.user!.uid)
           .set({'username': name, 'email': email});
+
       final auth.User? user = result.user;
-      user!.updateDisplayName(name);
+
+      await user!.updateDisplayName(name);
+      print("name $name email $email");
       print(user.displayName);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => Dashboard(),
+      ));
       return _userFromFirebase(result.user);
     } catch (e) {
+      // print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),
@@ -69,7 +98,7 @@ class AuthService {
 
   Future<void> signOut() async {
     try {
-      return await _auth.signOut();
+      return await _firebaseAuth.signOut();
     } catch (e) {
       print(e.toString());
       return null;

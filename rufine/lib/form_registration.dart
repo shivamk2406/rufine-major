@@ -140,16 +140,11 @@ void FormRegistration(BuildContext context, AuthService authService) async {
                               Center(
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    await authService
-                                        .createUserWithEmailAndPassword(
-                                            email.text,
-                                            password.text,
-                                            name.text,
-                                            context);
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (builder) => Dashboard()));
+                                    authService.signUp(
+                                        email: email.text,
+                                        password: password.text,
+                                        name: name.text,
+                                        context: context);
                                   },
                                   child: const Text(
                                     'Registration',
@@ -268,18 +263,11 @@ void FormRegistration(BuildContext context, AuthService authService) async {
                               Center(
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    var user = await authService
-                                        .signInwithEmailAndPassword(
-                                            email.text, password.text, context);
-                                    if (user != null) {
-                                      await Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (builder) =>
-                                                  Dashboard()));
-                                    } else {
-                                      print("else executed");
-                                    }
+                                    await authService.signIn(
+                                        email: email.text,
+                                        password: password.text,
+                                        context: context,
+                                        name: name.text);
                                   },
                                   child: const Text(
                                     'Login',
