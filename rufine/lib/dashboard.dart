@@ -2,11 +2,15 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rufine/diabetes.dart';
 import 'package:rufine/drawer.dart';
 import 'package:http/http.dart' as http;
 
 import 'auth_service.dart';
+import 'ml_service.dart';
 import 'onboarding.dart';
 
 class Dashboard extends StatefulWidget {
@@ -19,27 +23,44 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: MyAppDrawer(
-        username: FirebaseAuth.instance.currentUser!.displayName.toString(),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 70),
-        child: Center(
+    return SafeArea(
+      child: Scaffold(
+        drawer: MyAppDrawer(
+          username: FirebaseAuth.instance.currentUser!.displayName.toString(),
+        ),
+        body: SingleChildScrollView(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              child: Text(
-                  "Hello ${FirebaseAuth.instance.currentUser!.displayName.toString()}",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            setUserNameWidget(),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Diabetes()));
+                  },
+                  child: homeScreenItem(
+                      "assets/images/2.svg", 400, 400, "Diabetes Prediction"),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => MLService()));
+                  },
+                  child: homeScreenItem("assets/images/2.svg", 400, 400,
+                      "Skin Cancer Prediction"),
+                ),
+              ],
             ),
+            SizedBox(height: 20),
             ElevatedButton(
                 onPressed: () async {
-                  //ait GetResponse();
-                  // final authService =
-                  //     Provider.of<AuthService>(context, listen: false);
-                  // await authService.signOut();
-                  // Navigator.of(context).pushReplacement(
-                  //     MaterialPageRoute(builder: (_) => Onboarding()));
+                  final authService =
+                      Provider.of<AuthService>(context, listen: false);
+                  await authService.signOut();
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => Onboarding()));
                 },
                 child: Text("Sign Out")),
           ]),
@@ -60,4 +81,48 @@ Future<http.Response> GetResponse(
   var responseBody = await http.post(Uri.parse(url),
       headers: {"Content-Type": "application/json"}, body: encodedJson);
   return responseBody;
+}
+
+Widget setUserNameWidget() {
+  return Container(
+    padding: EdgeInsets.only(left: 40, top: 40),
+    child: Text(
+        "Hello ${FirebaseAuth.instance.currentUser!.displayName.toString()}",
+        style: GoogleFonts.encodeSansExpanded(
+            fontSize: 40,
+            fontWeight: FontWeight.w500,
+            color: Color(0xff32B768))),
+  );
+}
+
+Widget homeScreenItem(
+    String AssetPath, double height, double width, String designation) {
+  return Container(
+    height: height * 0.25,
+    width: width * 0.45,
+    margin: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade200,
+      borderRadius: BorderRadius.circular(30.0),
+      boxShadow: [
+        BoxShadow(
+            offset: Offset(10, 10), color: Colors.black12, blurRadius: 10),
+        BoxShadow(
+            offset: Offset(-10, -10),
+            color: Colors.white.withOpacity(0.45),
+            blurRadius: 10),
+      ],
+    ),
+    child: Padding(
+      padding: EdgeInsets.all(5),
+      child: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(
+            designation,
+            style: GoogleFonts.encodeSansSemiCondensed(color: Colors.green),
+          )
+        ]),
+      ),
+    ),
+  );
 }
