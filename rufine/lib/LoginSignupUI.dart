@@ -104,7 +104,7 @@ class _LoginSignUpUIState extends State<LoginSignUpUI> {
                       labelText: "Name",
                       labelStyle:
                           GoogleFonts.encodeSansCondensed(color: Colors.white),
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(borderSide: BorderSide()),
                       hintText: "Enter Name",
                       hintStyle:
                           GoogleFonts.encodeSansExpanded(color: Colors.white),

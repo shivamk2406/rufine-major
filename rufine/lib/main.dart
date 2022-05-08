@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rufine/auth_service.dart';
+import 'package:rufine/diabetesForm.dart';
 
 import 'package:rufine/ml_service.dart';
 import 'package:rufine/onboarding.dart';
@@ -27,14 +28,14 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home:
-            //MLService()
-            Wrapper(),
-      ),
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: Diabetes()
+          //MLService()
+          //Wrapper(),
+          ),
     );
   }
 }

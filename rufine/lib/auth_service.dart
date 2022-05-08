@@ -85,11 +85,10 @@ class AuthService {
         builder: (context) => Dashboard(),
       ));
       return _userFromFirebase(result.user);
-    } catch (e) {
-      // print(e.toString());
+    } on auth.FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.toString()),
+          content: Text(e.message!),
         ),
       );
       return null;
@@ -99,8 +98,8 @@ class AuthService {
   Future<void> signOut() async {
     try {
       return await _firebaseAuth.signOut();
-    } catch (e) {
-      print(e.toString());
+    } on auth.FirebaseAuthException catch (e) {
+      print(e.message);
       return null;
     }
   }

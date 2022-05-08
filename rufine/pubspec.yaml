@@ -46,6 +46,7 @@ dependencies:
   smooth_page_indicator:
   firebase_database_web: ^0.2.0+11
   flutter_svg_provider: ^1.0.3
+  http:
 
 dev_dependencies:
   flutter_test:
