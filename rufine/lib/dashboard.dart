@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rufine/diabetes.dart';
 import 'package:rufine/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:rufine/symtombased.dart';
 
 import 'auth_service.dart';
 import 'ml_service.dart';
@@ -54,6 +55,14 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
             SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SymptomBased()));
+              },
+              child: homeScreenItem(
+                  "assets/images/2.svg", 400, 400, "Symptom Based Prediction"),
+            ),
             ElevatedButton(
                 onPressed: () async {
                   final authService =
@@ -119,6 +128,7 @@ Widget homeScreenItem(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             designation,
+            textAlign: TextAlign.center,
             style: GoogleFonts.encodeSansSemiCondensed(color: Colors.green),
           )
         ]),

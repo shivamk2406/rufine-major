@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tflite/tflite.dart';
 
@@ -79,9 +81,10 @@ class _MLServiceState extends State<MLService> {
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff32B768),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("ML Service"),
+        title: Text("Skin Cancer Detection", style: GoogleFonts.poppins()),
       ),
       body: Container(
         height: h,
@@ -116,26 +119,46 @@ class _MLServiceState extends State<MLService> {
             Stack(
               children: [
                 Align(
-                  alignment: Alignment(-0.5, 0.8),
-                  child: FloatingActionButton(
-                    elevation: 0.0,
-                    child: new Icon(
-                      Icons.image,
+                  alignment: Alignment(-0.8, 0.8),
+                  child: Column(children: [
+                    FloatingActionButton(
+                      heroTag: null,
+                      elevation: 0.0,
+                      child: new Icon(
+                        Icons.image,
+                      ),
+                      backgroundColor: Color(0xff32B768),
+                      onPressed: getImageFromGallery,
                     ),
-                    backgroundColor: Colors.indigo[900],
-                    onPressed: getImageFromGallery,
-                  ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Select From Gallery",
+                      style: GoogleFonts.encodeSansExpanded(),
+                    )
+                  ]),
                 ),
                 Align(
-                  alignment: Alignment(0.5, 0.8),
-                  child: FloatingActionButton(
-                    elevation: 0.0,
-                    child: new Icon(
-                      Icons.camera,
+                  alignment: Alignment(0.8, 0.8),
+                  child: Column(children: [
+                    FloatingActionButton(
+                      heroTag: null,
+                      elevation: 0.0,
+                      child: Container(
+                        child: new Icon(
+                          Icons.camera,
+                        ),
+                      ),
+                      backgroundColor: Color(0xff32B768),
+                      onPressed: getImageFromCamera,
                     ),
-                    backgroundColor: Colors.indigo[900],
-                    onPressed: getImageFromCamera,
-                  ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Pick From Camera",
+                      style: GoogleFonts.encodeSansSemiCondensed(),
+                    )
+                  ]),
                 ),
               ],
             )

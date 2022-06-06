@@ -33,6 +33,13 @@ class _DiabetesState extends State<Diabetes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff32B768),
+        title: Text(
+          'Diabetes Prediction',
+          style: GoogleFonts.montserrat(),
+        ),
+      ),
       key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -83,6 +90,11 @@ class _DiabetesState extends State<Diabetes> {
                     height: 20,
                   ),
                   ProvideForm("BMI", "BMI", "Enter your BMI"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ProvideForm("Skin Thickness", "Skin Thickness",
+                      "Enter your insulin Level"),
                   SizedBox(
                     height: 20,
                   ),
