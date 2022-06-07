@@ -36,21 +36,27 @@ class _DashboardState extends State<Dashboard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Diabetes()));
-                  },
-                  child: homeScreenItem(
-                      "assets/images/2.svg", 400, 400, "Diabetes Prediction"),
+                Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Diabetes()));
+                    },
+                    child: homeScreenItem(
+                        "assets/images/2.svg", 400, 400, "Diabetes Prediction"),
+                  ),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => MLService()));
-                  },
-                  child: homeScreenItem("assets/images/2.svg", 400, 400,
-                      "Skin Cancer Prediction"),
+                Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => MLService()));
+                    },
+                    child: homeScreenItem("assets/images/2.svg", 400, 400,
+                        "Skin Cancer Prediction"),
+                  ),
                 ),
               ],
             ),
