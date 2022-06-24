@@ -93,11 +93,12 @@ class _SymptomBasedState extends State<SymptomBased> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Processing Data')),
               );
-              var response = await GetResponse({
-                "Symptoms":
-                    "Loss Of Balance,Unsteadiness,Weakness Of One Body Side"
-              });
+              var response = await GetResponse(SufferedSymptoms);
               final decodedJson = json.decode(response.body);
+              print(decodedJson);
+
+              await showMyDialog(
+                  context, decodedJson["naive_bayes_prediction"]);
               print(decodedJson["Diagnosis"]);
               //await showMyDialog(context, decodedJson["Diagnosis"]);
             },
@@ -139,6 +140,7 @@ class _SymptomBasedState extends State<SymptomBased> {
     String url = 'https://diabetespredicxtion.herokuapp.com/predict1';
     http.Response response = await http.get(Uri.parse(url));
     final encodedJson = json.encode(jsonData);
+    print("Here is the encoded json");
     print(encodedJson);
 
     var responseBody = await http.post(Uri.parse(url),
@@ -160,7 +162,7 @@ class _SymptomBasedState extends State<SymptomBased> {
             child: ListBody(
               children: <Widget>[
                 Text(
-                  'Your Risk level is',
+                  'Your Might be suffering from',
                   style: GoogleFonts.encodeSansExpanded(),
                 ),
                 Text(
