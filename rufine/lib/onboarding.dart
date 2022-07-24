@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rufine/LoginSignupUI.dart';
 import 'package:rufine/registration_page.dart';
 import 'package:rufine/slider.dart';
 
@@ -98,7 +99,7 @@ class _OnboardingState extends State<Onboarding> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Registration()));
+                                builder: (context) => LoginSignUpUI()));
                       },
                     ),
                   ],

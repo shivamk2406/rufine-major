@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "426321902558",
+    "project_id": "rufine-64814",
+    "storage_bucket": "rufine-64814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426321902558:android:c713bfd8fdd40cf2e4bb4f",
+        "android_client_info": {
+          "package_name": "com.example.rufine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426321902558-2on3br2bh4dc1iip1f1kqfc7u2jj58e9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtUV8RKEf7h_KjwJu70vZoJqjwhWZ_usk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426321902558-2on3br2bh4dc1iip1f1kqfc7u2jj58e9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,21 +14,16 @@ class MLService extends StatefulWidget {
 class _MLServiceState extends State<MLService> {
   bool loading = true;
   File? file;
-  var output;
-  var label;
-  var fine;
+  List<dynamic>? output;
   ImagePicker image = ImagePicker();
-
-  var gfg = {
-    'Benign': 'no_fine',
-    'Malignant': 'Fine_100_dollar',
-  };
 
   @override
   void initState() {
     super.initState();
     loadmodel().then((value) {
-      setState(() {});
+      setState(() {
+        print("model loaded");
+      });
     });
   }
 
@@ -42,8 +37,6 @@ class _MLServiceState extends State<MLService> {
     );
     setState(() {
       output = prediction;
-      label = (output![0]['label']).toString().substring(2);
-      fine = gfg[label];
       loading = false;
     });
   }
@@ -65,6 +58,7 @@ class _MLServiceState extends State<MLService> {
 
     setState(() {
       file = File(img!.path);
+      //print(img.path.toString());
     });
     detectimage(file!);
   }
@@ -74,6 +68,7 @@ class _MLServiceState extends State<MLService> {
 
     setState(() {
       file = File(img!.path);
+      print(img.path.toString());
     });
     detectimage(file!);
   }
@@ -104,14 +99,14 @@ class _MLServiceState extends State<MLService> {
                           padding: EdgeInsets.all(15),
                           child: Image.file(file!),
                         ),
+                        //Text(
+                        //(output![0]['label']).toString().substring(2),
+                        //),
                         Text(
-                          (output![0]['label']).toString().substring(2),
+                          (output![0]['confidence']).toString(),
+                          style: TextStyle(fontSize: 30),
                         ),
-                        Text(
-                          'Confidence: ' +
-                              (output![0]['confidence']).toString(),
-                        ),
-                        Text(fine),
+                        Text(output![0]['label'].toString().substring(2)),
                       ],
                     ),
                   ),
