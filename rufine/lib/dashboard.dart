@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:rufine/diabetes.dart';
 import 'package:rufine/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:rufine/heartdisease.dart';
+import 'package:rufine/ml_service1.dart';
 import 'package:rufine/symtombased.dart';
 
 import 'auth_service.dart';
@@ -61,13 +63,31 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
             SizedBox(height: 20),
+            Row(children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SymptomBased()));
+                },
+                child: homeScreenItem("assets/images/2.svg", 400, 400,
+                    "Symptom Based Prediction"),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HeartDisease()));
+                },
+                child: homeScreenItem("assets/images/2.svg", 400, 400,
+                    "Heart Disease \n Prediction"),
+              ),
+            ]),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SymptomBased()));
+                    MaterialPageRoute(builder: (context) => mlservice1()));
               },
-              child: homeScreenItem(
-                  "assets/images/2.svg", 400, 400, "Symptom Based Prediction"),
+              child: homeScreenItem("assets/images/2.svg", 400, 400,
+                  "Lung Segmentation \n Prediction"),
             ),
             ElevatedButton(
                 onPressed: () async {
@@ -86,9 +106,22 @@ class _DashboardState extends State<Dashboard> {
 }
 
 Future<http.Response> GetResponse(
-  Map<String, int> jsonData,
+  Map<String, dynamic> jsonData,
 ) async {
   String url = 'https://diabetespredicxtion.herokuapp.com/predict';
+  http.Response response = await http.get(Uri.parse(url));
+  final encodedJson = json.encode(jsonData);
+  print(encodedJson);
+
+  var responseBody = await http.post(Uri.parse(url),
+      headers: {"Content-Type": "application/json"}, body: encodedJson);
+  return responseBody;
+}
+
+Future<http.Response> GetResponse1(
+  Map<String, dynamic> jsonData,
+) async {
+  String url = 'https://diabetespredicxtion.herokuapp.com/predict2';
   http.Response response = await http.get(Uri.parse(url));
   final encodedJson = json.encode(jsonData);
   print(encodedJson);

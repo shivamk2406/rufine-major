@@ -94,7 +94,7 @@ class _DiabetesState extends State<Diabetes> {
                     height: 20,
                   ),
                   ProvideForm("Skin Thickness", "Skin Thickness",
-                      "Enter your insulin Level"),
+                      "Enter your Skin Thickness "),
                   SizedBox(
                     height: 20,
                   ),

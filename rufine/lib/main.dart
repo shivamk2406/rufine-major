@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rufine/auth_service.dart';
 import 'package:rufine/dashboard.dart';
 import 'package:rufine/diabetes.dart';
+import 'package:rufine/heartdisease.dart';
 
 import 'package:rufine/ml_service.dart';
 import 'package:rufine/onboarding.dart';
@@ -29,13 +30,12 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: Wrapper()
-          //Wrapper(),
-          ),
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Wrapper(),
+      ),
     );
   }
 }
